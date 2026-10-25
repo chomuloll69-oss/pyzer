@@ -46,11 +46,8 @@ Built on plain html, CSS, and JavaScript with pyodide as Running engine for the 
 
 ---
 
-### Special thanks
-1. Google fonts
-2. Material icons
-3.  Pyodide team
-4. claude.ai for helping 
+### This project is possible because of
+(Pyodide)[https://github.com/pyodide/pyodide]
 
 --- 
 ## Building
