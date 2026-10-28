@@ -47,7 +47,7 @@ Built on plain html, CSS, and JavaScript with pyodide as Running engine for the 
 ---
 
 ### This project is possible because of
-(Pyodide)[https://github.com/pyodide/pyodide]
+[Pyodide](https://github.com/pyodide/pyodide)
 
 --- 
 ## Building
