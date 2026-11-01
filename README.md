@@ -1,6 +1,10 @@
 # Pyzer — python in your browser
 
 ---
+### Try it
+<center><a href="https://pyzer.vercel.app">
+  <img src="./images/open-en.png" alt="Open the app" width="200" >
+  </a> </center>
 
 ## Features
 
