@@ -798,7 +798,7 @@ function setTheme(t) {
     p.classList.toggle('active', p.dataset.theme === t);
   });
   const clearFill = t === 'dark' ? '#D8C1C2' : '#534344';
-  document.querySelectorAll('#clear-code-btn span, #clear-output-btn svg').forEach(s => { if (s.tagName === 'svg') s.setAttribute('fill', clearFill); else s.style.color = clearFill; });
+  document.querySelectorAll('#clear-code-btn span, #copy-output-btn span, #clear-output-btn svg').forEach(s => { if (s.tagName === 'svg') s.setAttribute('fill', clearFill); else s.style.color = clearFill; });
   const iconExportNav = document.getElementById('icon-export-nav');
   if (iconExportNav) iconExportNav.style.color = clearFill;
   const iconEditorNav = document.getElementById('icon-editor-nav');
@@ -877,6 +877,28 @@ document.getElementById('clear-all-btn').addEventListener('click', () => {
   outputEl.innerHTML = '<span class="out-line info">Cleared. Ready.</span>';
   setStatus('');
   showSnack('Cleared');
+});
+
+document.getElementById('copy-output-btn').addEventListener('click', async () => {
+  // copy only program output (print/stderr/traceback), skip status lines like Running... / Done · took
+  const clone = outputEl.cloneNode(true);
+  clone.querySelectorAll('.out-line.system, .out-line.info, .out-line.success').forEach(n => n.remove());
+  clone.querySelectorAll('.out-line.error').forEach(n => { if (/^Failed · took /.test(n.textContent)) n.remove(); });
+  const text = clone.textContent.replace(/^\s+|\s+$/g, '');
+  if (!text) { showSnack('Nothing to copy'); return; }
+  try {
+    await navigator.clipboard.writeText(text);
+    showSnack('Output copied');
+  } catch {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;opacity:0;';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+    showSnack('Output copied');
+  }
 });
 
 document.getElementById('clear-output-btn').addEventListener('click', () => {
